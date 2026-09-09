@@ -1,0 +1,3113 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07111f">
+<title>شهر واژه‌ها | فارسی ششم</title>
+
+<style>
+/* =========================================================
+   شهر واژه‌ها | فارسی ششم
+   CSS - طراحی کامل بازی
+   ========================================================= */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg-dark: #07111f;
+  --bg-mid: #10243d;
+  --panel: rgba(255, 255, 255, 0.09);
+  --panel-strong: rgba(255, 255, 255, 0.14);
+  --border: rgba(255, 255, 255, 0.16);
+  --text: #f7fbff;
+  --muted: #b8c7d9;
+  --accent: #5ee7ff;
+  --accent-2: #9b7cff;
+  --success: #62e6a7;
+  --warning: #ffd166;
+  --danger: #ff7185;
+  --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  --radius: 24px;
+}
+
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+}
+
+body {
+  font-family:
+    Tahoma,
+    Arial,
+    "Segoe UI",
+    sans-serif;
+
+  direction: rtl;
+  color: var(--text);
+
+  background:
+    radial-gradient(
+      circle at 15% 20%,
+      rgba(94, 231, 255, 0.14),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 85% 15%,
+      rgba(155, 124, 255, 0.17),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 50% 90%,
+      rgba(98, 230, 167, 0.08),
+      transparent 28%
+    ),
+    linear-gradient(
+      135deg,
+      #050b15 0%,
+      #0a1728 48%,
+      #101d35 100%
+    );
+
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* صفحات */
+.page {
+  display: none;
+  width: 100%;
+  min-height: 100vh;
+  padding: 24px;
+  position: relative;
+}
+
+.page.active {
+  display: block;
+}
+
+/* افکت پس‌زمینه */
+.page::before,
+.page::after {
+  content: "";
+  position: fixed;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.page::before {
+  top: -120px;
+  right: -100px;
+  background: rgba(94, 231, 255, 0.08);
+}
+
+.page::after {
+  bottom: -120px;
+  left: -100px;
+  background: rgba(155, 124, 255, 0.08);
+}
+
+/* صفحه اصلی */
+#homePage {
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+#homePage.active {
+  display: flex;
+}
+
+.hero-content {
+  width: min(900px, 100%);
+  text-align: center;
+  padding: 35px 20px;
+}
+
+.hero-badge {
+  display: inline-flex;
+  padding: 9px 18px;
+  border: 1px solid rgba(94, 231, 255, 0.28);
+  background: rgba(94, 231, 255, 0.08);
+  border-radius: 999px;
+  color: var(--accent);
+  font-size: 14px;
+  margin-bottom: 20px;
+  backdrop-filter: blur(12px);
+}
+
+.hero-content h1 {
+  font-size: clamp(42px, 8vw, 78px);
+  font-weight: 900;
+  letter-spacing: -2px;
+
+  background: linear-gradient(
+    90deg,
+    #ffffff,
+    #5ee7ff,
+    #b99cff
+  );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+
+  margin-bottom: 12px;
+}
+
+.hero-subtitle {
+  color: var(--muted);
+  font-size: 18px;
+  margin-bottom: 28px;
+}
+
+.hero-visual {
+  width: 190px;
+  height: 190px;
+  margin: 0 auto 35px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-orb {
+  width: 145px;
+  height: 145px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 42px;
+
+  font-size: 70px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.17),
+      rgba(255, 255, 255, 0.05)
+    );
+
+  border: 1px solid rgba(255, 255, 255, 0.18);
+
+  box-shadow:
+    0 0 60px rgba(94, 231, 255, 0.15),
+    inset 0 0 35px rgba(255, 255, 255, 0.06);
+
+  backdrop-filter: blur(15px);
+
+  transform: rotate(-4deg);
+  animation: floating 4s ease-in-out infinite;
+}
+
+.hero-star {
+  position: absolute;
+  color: var(--accent);
+  font-size: 22px;
+  animation: twinkle 2.5s infinite ease-in-out;
+}
+
+.star-1 {
+  top: 12px;
+  right: 25px;
+}
+
+.star-2 {
+  bottom: 20px;
+  left: 15px;
+  color: var(--warning);
+  animation-delay: .7s;
+}
+
+.star-3 {
+  top: 55px;
+  left: 0;
+  color: #b99cff;
+  animation-delay: 1.2s;
+}
+
+@keyframes floating {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-4deg);
+  }
+
+  50% {
+    transform: translateY(-10px) rotate(2deg);
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: .35;
+    transform: scale(.8);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+/* دکمه‌های صفحه اصلی */
+.home-buttons {
+  width: min(600px, 100%);
+  margin: auto;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.main-menu-btn {
+  min-height: 125px;
+
+  border: 1px solid var(--border);
+  border-radius: 22px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, .13),
+      rgba(255, 255, 255, .055)
+    );
+
+  color: var(--text);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  cursor: pointer;
+
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(15px);
+
+  transition:
+    transform .2s ease,
+    border-color .2s ease,
+    background .2s ease;
+}
+
+.main-menu-btn:hover {
+  transform: translateY(-6px);
+  border-color: rgba(94, 231, 255, .5);
+  background: rgba(94, 231, 255, .1);
+}
+
+.main-menu-btn:active {
+  transform: translateY(-1px) scale(.98);
+}
+
+.main-menu-btn:first-child {
+  border-color: rgba(155, 124, 255, .25);
+}
+
+.main-menu-btn:nth-child(2) {
+  border-color: rgba(94, 231, 255, .25);
+}
+
+.main-menu-btn:nth-child(3) {
+  border-color: rgba(98, 230, 167, .25);
+}
+
+.main-menu-btn:first-child::first-line {
+  font-size: 30px;
+}
+
+.main-menu-btn span {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+/* کارت ورود */
+#teacherLoginPage,
+#studentLoginPage,
+#guestLoginPage {
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+#teacherLoginPage.active,
+#studentLoginPage.active,
+#guestLoginPage.active {
+  display: flex;
+}
+
+.login-card {
+  width: min(450px, 100%);
+
+  padding: 38px;
+
+  text-align: center;
+
+  border: 1px solid var(--border);
+  border-radius: 28px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.13),
+      rgba(255,255,255,.045)
+    );
+
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(20px);
+}
+
+.login-icon {
+  width: 82px;
+  height: 82px;
+
+  margin: 0 auto 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 24px;
+
+  font-size: 38px;
+
+  background: rgba(94, 231, 255, .1);
+  border: 1px solid rgba(94, 231, 255, .22);
+}
+
+.login-card h2 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.login-card p {
+  color: var(--muted);
+  margin-bottom: 25px;
+  line-height: 1.8;
+}
+
+.login-card input {
+  width: 100%;
+  height: 54px;
+
+  border-radius: 15px;
+  border: 1px solid rgba(255,255,255,.13);
+
+  background: rgba(0,0,0,.2);
+
+  color: #fff;
+
+  padding: 0 16px;
+  margin-bottom: 12px;
+
+  outline: none;
+
+  font-family: inherit;
+  font-size: 15px;
+
+  text-align: right;
+  direction: rtl;
+
+  transition: border-color .2s ease;
+}
+
+.login-card input:focus {
+  border-color: var(--accent);
+}
+
+.login-card input::placeholder {
+  color: #8292a8;
+}
+
+/* دکمه‌های عمومی */
+button {
+  font-family: inherit;
+}
+
+.primary-btn,
+.secondary-btn,
+.danger-btn {
+  min-height: 48px;
+
+  border-radius: 14px;
+
+  padding: 10px 20px;
+
+  border: 1px solid transparent;
+
+  cursor: pointer;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  transition:
+    transform .2s ease,
+    opacity .2s ease,
+    border-color .2s ease;
+}
+
+.primary-btn {
+  width: 100%;
+
+  color: #06101c;
+
+  background:
+    linear-gradient(
+      135deg,
+      #5ee7ff,
+      #9b7cff
+    );
+
+  box-shadow:
+    0 10px 30px rgba(94, 231, 255, .12);
+}
+
+.secondary-btn {
+  width: 100%;
+
+  margin-top: 10px;
+
+  color: var(--text);
+
+  background: rgba(255,255,255,.06);
+  border-color: rgba(255,255,255,.13);
+}
+
+.danger-btn {
+  color: #fff;
+  background: rgba(255,113,133,.13);
+  border-color: rgba(255,113,133,.3);
+}
+
+.primary-btn:hover,
+.secondary-btn:hover,
+.danger-btn:hover {
+  transform: translateY(-2px);
+}
+
+.primary-btn:active,
+.secondary-btn:active,
+.danger-btn:active {
+  transform: scale(.98);
+}
+
+button:disabled {
+  opacity: .4;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* هدر بازی */
+.game-header {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  padding: 14px 16px;
+
+  border: 1px solid var(--border);
+  border-radius: 22px;
+
+  background: rgba(255,255,255,.065);
+  backdrop-filter: blur(18px);
+
+  box-shadow: 0 12px 35px rgba(0,0,0,.18);
+}
+
+.icon-btn {
+  width: 46px;
+  height: 46px;
+
+  flex: 0 0 auto;
+
+  border-radius: 14px;
+
+  border: 1px solid rgba(255,255,255,.13);
+
+  background: rgba(255,255,255,.06);
+
+  color: #fff;
+
+  cursor: pointer;
+
+  font-size: 22px;
+
+  transition: .2s ease;
+}
+
+.icon-btn:hover {
+  background: rgba(94,231,255,.1);
+  border-color: rgba(94,231,255,.35);
+}
+
+.player-info {
+  min-width: 150px;
+}
+
+.player-info div:first-child {
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.player-info div:last-child {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.game-stats {
+  margin-right: auto;
+
+  display: grid;
+  grid-template-columns: repeat(4, minmax(75px, 1fr));
+
+  gap: 8px;
+}
+
+.stat-box {
+  min-width: 75px;
+
+  padding: 8px 10px;
+
+  text-align: center;
+
+  border-radius: 13px;
+
+  background: rgba(255,255,255,.055);
+  border: 1px solid rgba(255,255,255,.08);
+}
+
+.stat-label {
+  display: block;
+  color: var(--muted);
+  font-size: 10px;
+  margin-bottom: 3px;
+}
+
+.stat-box strong {
+  font-size: 15px;
+}
+
+/* پیشرفت کلی */
+.progress-area {
+  margin-top: 12px;
+  padding: 5px 4px;
+}
+
+.progress-track {
+  height: 8px;
+
+  width: 100%;
+
+  border-radius: 999px;
+
+  background: rgba(255,255,255,.08);
+
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+
+  border-radius: inherit;
+
+  background:
+    linear-gradient(
+      90deg,
+      #5ee7ff,
+      #9b7cff,
+      #62e6a7
+    );
+
+  transition: width .45s ease;
+}
+
+.progress-text {
+  display: flex;
+  justify-content: space-between;
+
+  margin-top: 7px;
+
+  color: var(--muted);
+
+  font-size: 11px;
+}
+
+/* چیدمان بازی */
+.game-layout {
+  display: grid;
+
+  grid-template-columns: 290px minmax(0, 1fr);
+
+  gap: 18px;
+
+  margin-top: 18px;
+
+  align-items: start;
+}
+
+/* پنل مناطق */
+.regions-panel {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+
+  background: rgba(255,255,255,.065);
+
+  backdrop-filter: blur(18px);
+
+  padding: 16px;
+
+  box-shadow: var(--shadow);
+}
+
+.panel-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding-bottom: 14px;
+
+  margin-bottom: 12px;
+
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+.panel-title > span {
+  font-size: 25px;
+}
+
+.panel-title strong {
+  display: block;
+  font-size: 14px;
+}
+
+.panel-title small {
+  display: block;
+  color: var(--muted);
+  margin-top: 4px;
+  font-size: 10px;
+}
+
+.regions-container {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.region-card {
+  width: 100%;
+
+  padding: 13px;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  text-align: right;
+
+  border-radius: 16px;
+
+  border: 1px solid rgba(255,255,255,.08);
+
+  background: rgba(255,255,255,.045);
+
+  color: var(--text);
+
+  cursor: pointer;
+
+  transition: .2s ease;
+}
+
+.region-card:hover {
+  transform: translateX(-3px);
+  border-color: rgba(94,231,255,.35);
+}
+
+.region-card.active {
+  background: rgba(94,231,255,.1);
+  border-color: rgba(94,231,255,.45);
+  box-shadow: inset 0 0 25px rgba(94,231,255,.04);
+}
+
+.region-card.completed {
+  border-color: rgba(98,230,167,.28);
+}
+
+.region-icon {
+  width: 42px;
+  height: 42px;
+
+  flex: 0 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 13px;
+
+  background: rgba(255,255,255,.07);
+
+  font-size: 22px;
+}
+
+.region-info {
+  min-width: 0;
+}
+
+.region-info strong {
+  display: block;
+
+  font-size: 12px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.region-info small {
+  display: block;
+
+  margin-top: 4px;
+
+  color: var(--muted);
+
+  font-size: 10px;
+}
+
+/* بخش مرحله */
+.stage-area {
+  min-width: 0;
+
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.085),
+      rgba(255,255,255,.035)
+    );
+
+  padding: 22px;
+
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(20px);
+}
+
+.stage-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  margin-bottom: 20px;
+}
+
+.stage-title {
+  font-size: 25px;
+  font-weight: 900;
+}
+
+.stage-subtitle {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 6px;
+}
+
+.stage-progress {
+  min-width: 65px;
+
+  padding: 9px 13px;
+
+  text-align: center;
+
+  border-radius: 999px;
+
+  background: rgba(94,231,255,.08);
+
+  border: 1px solid rgba(94,231,255,.18);
+
+  color: var(--accent);
+
+  font-size: 12px;
+  font-weight: 800;
+}
+
+/* شبکه سؤال‌ها */
+.question-grid {
+  display: grid;
+
+  grid-template-columns: repeat(5, minmax(70px, 1fr));
+
+  gap: 10px;
+
+  margin-bottom: 18px;
+}
+
+.question-card-mini {
+  min-height: 75px;
+
+  border-radius: 16px;
+
+  border: 1px solid rgba(255,255,255,.1);
+
+  background: rgba(255,255,255,.05);
+
+  color: #fff;
+
+  cursor: pointer;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 5px;
+
+  transition: .2s ease;
+}
+
+.question-card-mini:hover {
+  transform: translateY(-3px);
+  border-color: rgba(94,231,255,.4);
+}
+
+.question-card-mini.active {
+  border-color: rgba(155,124,255,.65);
+  background: rgba(155,124,255,.1);
+}
+
+.question-card-mini.done {
+  border-color: rgba(98,230,167,.35);
+  background: rgba(98,230,167,.07);
+}
+
+.question-card-mini.wrong {
+  border-color: rgba(255,113,133,.35);
+}
+
+.question-card-mini .q-number {
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.question-card-mini .q-status {
+  font-size: 10px;
+  color: var(--muted);
+}
+
+/* نمایش سؤال */
+.question-view {
+  margin-top: 8px;
+}
+
+.question-view.hidden {
+  display: none;
+}
+
+.question-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 10px;
+}
+
+.question-stage {
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.question-difficulty {
+  padding: 5px 10px;
+
+  border-radius: 999px;
+
+  background: rgba(255,255,255,.07);
+
+  border: 1px solid rgba(255,255,255,.1);
+
+  color: var(--warning);
+
+  font-size: 10px;
+}
+
+.question-card {
+  border-radius: 22px;
+
+  border: 1px solid rgba(255,255,255,.12);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(10,25,43,.92),
+      rgba(15,28,50,.72)
+    );
+
+  padding: 25px;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.05),
+    0 20px 50px rgba(0,0,0,.2);
+}
+
+.question-number {
+  color: var(--muted);
+
+  font-size: 11px;
+
+  margin-bottom: 12px;
+}
+
+.question-text {
+  font-size: 18px;
+
+  line-height: 2;
+
+  font-weight: 800;
+
+  margin-bottom: 20px;
+
+  white-space: pre-line;
+}
+
+.options-container {
+  display: grid;
+
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 11px;
+}
+
+.option-btn {
+  position: relative;
+
+  min-height: 58px;
+
+  padding: 12px 15px;
+
+  border-radius: 15px;
+
+  border: 1px solid rgba(255,255,255,.1);
+
+  background: rgba(255,255,255,.055);
+
+  color: #fff;
+
+  text-align: right;
+
+  cursor: pointer;
+
+  font-size: 14px;
+
+  line-height: 1.7;
+
+  transition: .2s ease;
+}
+
+.option-btn:hover {
+  transform: translateY(-2px);
+
+  border-color: rgba(94,231,255,.42);
+
+  background: rgba(94,231,255,.08);
+}
+
+.option-btn.correct {
+  border-color: rgba(98,230,167,.75);
+  background: rgba(98,230,167,.13);
+}
+
+.option-btn.incorrect {
+  border-color: rgba(255,113,133,.7);
+  background: rgba(255,113,133,.1);
+}
+
+.option-btn.locked {
+  cursor: default;
+}
+
+.option-label {
+  display: inline-flex;
+
+  width: 29px;
+  height: 29px;
+
+  margin-left: 8px;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 9px;
+
+  background: rgba(255,255,255,.08);
+
+  color: var(--accent);
+
+  font-weight: 900;
+}
+
+/* توضیح آموزشی */
+.explanation {
+  margin-top: 17px;
+
+  padding: 15px 17px;
+
+  border-radius: 16px;
+
+  border: 1px solid rgba(255,209,102,.2);
+
+  background: rgba(255,209,102,.055);
+}
+
+.explanation.hidden {
+  display: none;
+}
+
+.explanation-title {
+  color: var(--warning);
+
+  font-weight: 900;
+
+  font-size: 13px;
+
+  margin-bottom: 7px;
+}
+
+.explanation-text {
+  color: #dce5ef;
+
+  font-size: 13px;
+
+  line-height: 1.9;
+}
+
+/* پایان مرحله */
+.finish-message {
+  padding: 13px 15px;
+
+  margin: 15px 0;
+
+  border-radius: 15px;
+
+  background: rgba(98,230,167,.07);
+
+  border: 1px solid rgba(98,230,167,.2);
+
+  color: #c8f7df;
+
+  font-size: 13px;
+
+  line-height: 1.8;
+}
+
+.finish-message.hidden {
+  display: none;
+}
+
+.finish-stage-btn {
+  width: 100%;
+
+  min-height: 52px;
+
+  border-radius: 15px;
+
+  border: 1px solid rgba(98,230,167,.3);
+
+  background: rgba(98,230,167,.09);
+
+  color: #baf3d6;
+
+  cursor: pointer;
+
+  font-family: inherit;
+
+  font-weight: 800;
+
+  transition: .2s ease;
+}
+
+.finish-stage-btn:hover {
+  background: rgba(98,230,167,.15);
+}
+
+.finish-stage-btn:disabled {
+  opacity: .35;
+}
+
+/* پنل معلم */
+.teacher-header {
+  display: flex;
+
+  align-items: center;
+
+  gap: 15px;
+
+  max-width: 1200px;
+
+  margin: 0 auto 20px;
+
+  padding: 16px;
+
+  border: 1px solid var(--border);
+
+  border-radius: 22px;
+
+  background: rgba(255,255,255,.06);
+
+  backdrop-filter: blur(18px);
+}
+
+.teacher-header h1 {
+  font-size: 25px;
+}
+
+.teacher-header p {
+  color: var(--muted);
+
+  font-size: 12px;
+
+  margin-top: 5px;
+}
+
+.teacher-panel {
+  width: min(1200px, 100%);
+
+  margin: auto;
+}
+
+.teacher-section {
+  margin-bottom: 18px;
+
+  padding: 20px;
+
+  border: 1px solid var(--border);
+
+  border-radius: 22px;
+
+  background: rgba(255,255,255,.055);
+
+  backdrop-filter: blur(18px);
+}
+
+.section-heading {
+  margin-bottom: 15px;
+}
+
+.section-heading h2 {
+  font-size: 18px;
+}
+
+.section-heading p {
+  color: var(--muted);
+
+  font-size: 12px;
+
+  margin-top: 5px;
+}
+
+/* پوشه کلاس‌ها */
+.class-folders {
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 12px;
+}
+
+.class-folder {
+  min-height: 105px;
+
+  border-radius: 18px;
+
+  border: 1px solid rgba(255,255,255,.1);
+
+  background: rgba(255,255,255,.05);
+
+  color: #fff;
+
+  cursor: pointer;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 7px;
+
+  transition: .2s ease;
+}
+
+.class-folder:hover,
+.class-folder.active {
+  transform: translateY(-3px);
+
+  border-color: rgba(94,231,255,.4);
+
+  background: rgba(94,231,255,.08);
+}
+
+.class-folder span {
+  font-size: 31px;
+}
+
+.class-folder strong {
+  font-size: 14px;
+}
+
+/* آمار معلم */
+.teacher-stats {
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 12px;
+}
+
+.teacher-stat-card {
+  padding: 17px;
+
+  border-radius: 17px;
+
+  background: rgba(255,255,255,.05);
+
+  border: 1px solid rgba(255,255,255,.08);
+
+  text-align: center;
+}
+
+.teacher-stat-card span {
+  display: block;
+
+  font-size: 25px;
+
+  margin-bottom: 7px;
+}
+
+.teacher-stat-card small {
+  display: block;
+
+  color: var(--muted);
+
+  font-size: 10px;
+
+  margin-bottom: 5px;
+}
+
+.teacher-stat-card strong {
+  font-size: 20px;
+}
+
+/* جدول */
+.table-wrapper {
+  width: 100%;
+
+  overflow-x: auto;
+
+  border-radius: 16px;
+
+  border: 1px solid rgba(255,255,255,.08);
+}
+
+.results-table {
+  width: 100%;
+
+  border-collapse: collapse;
+
+  min-width: 650px;
+}
+
+.results-table th,
+.results-table td {
+  padding: 12px;
+
+  text-align: center;
+
+  border-bottom: 1px solid rgba(255,255,255,.07);
+
+  font-size: 12px;
+}
+
+.results-table th {
+  background: rgba(255,255,255,.06);
+
+  color: var(--accent);
+
+  font-weight: 800;
+}
+
+.results-table td {
+  color: #dce5ef;
+}
+
+.results-table tr:last-child td {
+  border-bottom: none;
+}
+
+.teacher-actions {
+  display: flex;
+
+  gap: 10px;
+
+  margin-top: 15px;
+}
+
+.teacher-actions .primary-btn,
+.teacher-actions .danger-btn {
+  width: auto;
+
+  flex: 1;
+}
+
+/* بازخورد معلم */
+.feedback-summary {
+  display: grid;
+
+  grid-template-columns: repeat(5, 1fr);
+
+  gap: 8px;
+
+  margin-bottom: 15px;
+}
+
+.feedback-summary-item {
+  padding: 11px 7px;
+
+  text-align: center;
+
+  border-radius: 14px;
+
+  background: rgba(255,255,255,.05);
+
+  border: 1px solid rgba(255,255,255,.08);
+}
+
+.feedback-summary-item strong {
+  display: block;
+
+  font-size: 18px;
+
+  margin-bottom: 4px;
+}
+
+.feedback-summary-item span {
+  color: var(--muted);
+
+  font-size: 9px;
+}
+
+.feedback-list {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 10px;
+}
+
+.feedback-item {
+  padding: 14px;
+
+  border-radius: 15px;
+
+  background: rgba(255,255,255,.04);
+
+  border: 1px solid rgba(255,255,255,.08);
+}
+
+.feedback-item-header {
+  display: flex;
+
+  justify-content: space-between;
+
+  gap: 10px;
+
+  margin-bottom: 7px;
+}
+
+.feedback-item-name {
+  font-weight: 800;
+
+  font-size: 12px;
+}
+
+.feedback-item-satisfaction {
+  font-size: 12px;
+}
+
+.feedback-item-class {
+  color: var(--accent);
+
+  font-size: 10px;
+}
+
+.feedback-item-comment {
+  color: #d6e0eb;
+
+  font-size: 12px;
+
+  line-height: 1.8;
+}
+
+/* صفحه نتیجه */
+#resultPage {
+  padding-top: 35px;
+  padding-bottom: 45px;
+}
+
+.result-container {
+  width: min(900px, 100%);
+
+  margin: auto;
+}
+
+.result-hero {
+  text-align: center;
+
+  margin-bottom: 25px;
+}
+
+.result-trophy {
+  width: 95px;
+  height: 95px;
+
+  margin: 0 auto 15px;
+
+  border-radius: 28px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  font-size: 52px;
+
+  background: rgba(255,209,102,.08);
+
+  border: 1px solid rgba(255,209,102,.25);
+
+  box-shadow: 0 0 50px rgba(255,209,102,.08);
+}
+
+.result-hero h1 {
+  font-size: clamp(27px, 5vw, 43px);
+
+  margin-bottom: 7px;
+}
+
+.result-hero p {
+  color: var(--muted);
+
+  font-size: 13px;
+}
+
+/* آمار نهایی */
+.final-stats {
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 11px;
+
+  margin-bottom: 18px;
+}
+
+.final-stat-card {
+  padding: 18px 10px;
+
+  text-align: center;
+
+  border-radius: 18px;
+
+  border: 1px solid rgba(255,255,255,.1);
+
+  background: rgba(255,255,255,.06);
+}
+
+.final-stat-card span {
+  display: block;
+
+  font-size: 25px;
+
+  margin-bottom: 5px;
+}
+
+.final-stat-card small {
+  display: block;
+
+  color: var(--muted);
+
+  font-size: 10px;
+
+  margin-bottom: 5px;
+}
+
+.final-stat-card strong {
+  font-size: 20px;
+}
+
+/* تحلیل نتیجه */
+.result-analysis {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 11px;
+
+  margin-bottom: 20px;
+}
+
+.analysis-card {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 15px;
+
+  border-radius: 17px;
+
+  background: rgba(255,255,255,.05);
+
+  border: 1px solid rgba(255,255,255,.08);
+}
+
+.analysis-card > span {
+  font-size: 27px;
+}
+
+.analysis-card small {
+  display: block;
+
+  color: var(--muted);
+
+  font-size: 9px;
+
+  margin-bottom: 5px;
+}
+
+.analysis-card strong {
+  font-size: 12px;
+
+  line-height: 1.6;
+}
+
+/* نشان‌ها */
+.badges-section {
+  margin-bottom: 20px;
+}
+
+.badges-section h2 {
+  font-size: 18px;
+
+  margin-bottom: 12px;
+}
+
+.badges-grid {
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 10px;
+}
+
+.badge-card {
+  padding: 18px 10px;
+
+  text-align: center;
+
+  border-radius: 18px;
+
+  border: 1px solid rgba(255,255,255,.08);
+
+  background: rgba(255,255,255,.04);
+
+  opacity: .4;
+
+  filter: grayscale(.6);
+
+  transition: .3s ease;
+}
+
+.badge-card.unlocked {
+  opacity: 1;
+
+  filter: none;
+
+  border-color: rgba(255,209,102,.35);
+
+  background: rgba(255,209,102,.06);
+
+  box-shadow: 0 10px 35px rgba(255,209,102,.06);
+}
+
+.badge-icon {
+  font-size: 35px;
+
+  margin-bottom: 8px;
+}
+
+.badge-card strong {
+  display: block;
+
+  font-size: 12px;
+
+  margin-bottom: 5px;
+}
+
+.badge-card small {
+  color: var(--muted);
+
+  font-size: 9px;
+}
+
+/* مرور پاسخ‌ها */
+.review-box {
+  padding: 20px;
+
+  margin-bottom: 20px;
+
+  border-radius: 20px;
+
+  border: 1px solid rgba(255,255,255,.09);
+
+  background: rgba(255,255,255,.045);
+}
+
+.review-list {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 10px;
+}
+
+.review-item {
+  padding: 13px;
+
+  border-radius: 15px;
+
+  background: rgba(255,113,133,.05);
+
+  border: 1px solid rgba(255,113,133,.15);
+}
+
+.review-item strong {
+  display: block;
+
+  color: var(--danger);
+
+  font-size: 12px;
+
+  margin-bottom: 6px;
+}
+
+.review-item p {
+  color: #d8e1eb;
+
+  font-size: 12px;
+
+  line-height: 1.8;
+}
+
+/* بخش نظر دانش‌آموز */
+.feedback-section {
+  padding: 22px;
+
+  border-radius: 20px;
+
+  border: 1px solid rgba(255,255,255,.09);
+
+  background: rgba(255,255,255,.045);
+
+  margin-bottom: 18px;
+}
+
+.feedback-section h2 {
+  font-size: 18px;
+
+  margin-bottom: 7px;
+}
+
+.feedback-section > p {
+  color: var(--muted);
+
+  font-size: 11px;
+
+  margin-bottom: 12px;
+}
+
+.feedback-section textarea {
+  width: 100%;
+
+  resize: vertical;
+
+  min-height: 100px;
+
+  padding: 13px;
+
+  border-radius: 14px;
+
+  border: 1px solid rgba(255,255,255,.1);
+
+  background: rgba(0,0,0,.18);
+
+  color: #fff;
+
+  outline: none;
+
+  font-family: inherit;
+
+  line-height: 1.8;
+
+  font-size: 12px;
+}
+
+.feedback-section textarea:focus {
+  border-color: rgba(94,231,255,.45);
+}
+
+.satisfaction-title {
+  margin: 15px 0 9px;
+
+  color: var(--muted);
+
+  font-size: 11px;
+}
+
+.feedback-choices {
+  display: grid;
+
+  grid-template-columns: repeat(5, 1fr);
+
+  gap: 8px;
+
+  margin-bottom: 15px;
+}
+
+.feedback-choice {
+  min-height: 82px;
+
+  padding: 8px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  align-items: center;
+
+  gap: 5px;
+
+  border-radius: 14px;
+
+  border: 1px solid rgba(255,255,255,.09);
+
+  background: rgba(255,255,255,.045);
+
+  color: #fff;
+
+  cursor: pointer;
+
+  font-family: inherit;
+
+  transition: .2s ease;
+}
+
+.feedback-choice:hover {
+  transform: translateY(-2px);
+
+  border-color: rgba(255,209,102,.4);
+}
+
+.feedback-choice.selected {
+  border-color: rgba(255,209,102,.65);
+
+  background: rgba(255,209,102,.09);
+
+  box-shadow: 0 0 25px rgba(255,209,102,.05);
+}
+
+.feedback-choice:first-child {
+  font-size: 25px;
+}
+
+.feedback-choice span {
+  font-size: 9px;
+
+  color: var(--muted);
+
+  line-height: 1.4;
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+
+  bottom: 22px;
+
+  left: 50%;
+
+  transform: translateX(-50%) translateY(30px);
+
+  min-width: 240px;
+
+  max-width: calc(100% - 30px);
+
+  padding: 13px 17px;
+
+  border-radius: 14px;
+
+  background: rgba(8,18,31,.94);
+
+  border: 1px solid rgba(94,231,255,.25);
+
+  box-shadow: 0 15px 45px rgba(0,0,0,.35);
+
+  color: #fff;
+
+  text-align: center;
+
+  font-size: 12px;
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  transition: .3s ease;
+
+  z-index: 9999;
+
+  backdrop-filter: blur(15px);
+}
+
+.toast.show {
+  opacity: 1;
+
+  transform: translateX(-50%) translateY(0);
+}
+
+/* حالت خالی */
+.empty-state {
+  padding: 25px;
+
+  text-align: center;
+
+  color: var(--muted);
+
+  font-size: 12px;
+
+  border-radius: 15px;
+
+  border: 1px dashed rgba(255,255,255,.1);
+
+  background: rgba(255,255,255,.025);
+}
+
+/* واکنش‌گرا - تبلت */
+@media (max-width: 900px) {
+
+  .game-layout {
+    grid-template-columns: 220px minmax(0, 1fr);
+  }
+
+  .game-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .class-folders {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .teacher-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .final-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .badges-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+/* واکنش‌گرا - موبایل */
+@media (max-width: 680px) {
+
+  .page {
+    padding: 12px;
+  }
+
+  .hero-content {
+    padding-top: 25px;
+  }
+
+  .hero-content h1 {
+    font-size: 48px;
+  }
+
+  .hero-subtitle {
+    font-size: 14px;
+  }
+
+  .hero-visual {
+    transform: scale(.85);
+    margin-top: -5px;
+    margin-bottom: 15px;
+  }
+
+  .home-buttons {
+    grid-template-columns: 1fr;
+  }
+
+  .main-menu-btn {
+    min-height: 70px;
+
+    flex-direction: row;
+
+    justify-content: center;
+  }
+
+  .game-header {
+    flex-wrap: wrap;
+  }
+
+  .player-info {
+    flex: 1;
+  }
+
+  .game-stats {
+    width: 100%;
+    margin-right: 0;
+  }
+
+  .game-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .regions-panel {
+    order: 1;
+  }
+
+  .stage-area {
+    order: 2;
+    padding: 15px;
+  }
+
+  .regions-container {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .region-card {
+    padding: 9px;
+  }
+
+  .region-info strong {
+    font-size: 10px;
+  }
+
+  .region-info small {
+    display: none;
+  }
+
+  .question-grid {
+    grid-template-columns: repeat(5, 1fr);
+
+    gap: 6px;
+  }
+
+  .question-card-mini {
+    min-height: 60px;
+  }
+
+  .question-card-mini .q-number {
+    font-size: 15px;
+  }
+
+  .question-text {
+    font-size: 15px;
+  }
+
+  .options-container {
+    grid-template-columns: 1fr;
+  }
+
+  .result-analysis {
+    grid-template-columns: 1fr;
+  }
+
+  .feedback-choices {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  .feedback-choice {
+    min-height: 70px;
+    padding: 5px;
+  }
+
+  .feedback-choice span {
+    font-size: 7px;
+  }
+
+  .teacher-actions {
+    flex-direction: column;
+  }
+
+}
+
+/* موبایل خیلی کوچک */
+@media (max-width: 420px) {
+
+  .login-card {
+    padding: 25px 17px;
+  }
+
+  .stage-title {
+    font-size: 20px;
+  }
+
+  .stage-subtitle {
+    font-size: 10px;
+  }
+
+  .question-card {
+    padding: 17px;
+  }
+
+  .question-text {
+    font-size: 14px;
+  }
+
+  .class-folders {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .teacher-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .final-stat-card {
+    padding: 13px 5px;
+  }
+
+  .feedback-choice {
+    min-height: 62px;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     صفحه اصلی
+     ========================= -->
+<section id="homePage" class="page active">
+
+  <div class="hero-content">
+
+    <div class="hero-badge">
+      📚 فارسی ششم | ۱۴۰۵–۱۴۰۶
+    </div>
+
+    <h1>شهر واژه‌ها</h1>
+
+    <p class="hero-subtitle">
+      یک ماجراجویی آموزشی در دنیای فارسی
+    </p>
+
+    <div class="hero-visual">
+
+      <div class="hero-orb">
+        📖
+      </div>
+
+      <div class="hero-star star-1">
+        ✦
+      </div>
+
+      <div class="hero-star star-2">
+        ✦
+      </div>
+
+      <div class="hero-star star-3">
+        ✦
+      </div>
+
+    </div>
+
+    <div class="home-buttons">
+
+      <button id="teacherEntry" class="main-menu-btn">
+        👨‍🏫
+        <span>پنل معلم</span>
+      </button>
+
+      <button id="studentEntry" class="main-menu-btn">
+        🎓
+        <span>ورود دانش‌آموز</span>
+      </button>
+
+      <button id="guestEntry" class="main-menu-btn">
+        👤
+        <span>ورود مهمان</span>
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- =========================
+     ورود معلم
+     ========================= -->
+<section id="teacherLoginPage" class="page">
+
+  <div class="login-card">
+
+    <div class="login-icon">
+      👨‍🏫
+    </div>
+
+    <h2>
+      ورود به پنل معلم
+    </h2>
+
+    <p>
+      رمز ورود را وارد کنید.
+    </p>
+
+    <input
+      id="teacherPassword"
+      type="password"
+      placeholder="رمز عبور"
+      autocomplete="off"
+    >
+
+    <button id="teacherLoginBtn" class="primary-btn">
+      ورود به پنل
+    </button>
+
+    <button id="teacherBackBtn" class="secondary-btn">
+      بازگشت
+    </button>
+
+  </div>
+
+</section>
+
+<!-- =========================
+     ورود دانش‌آموز
+     ========================= -->
+<section id="studentLoginPage" class="page">
+
+  <div class="login-card">
+
+    <div class="login-icon">
+      🎓
+    </div>
+
+    <h2>
+      ورود دانش‌آموز
+    </h2>
+
+    <p>
+      نام و کد کلاس خود را وارد کنید.
+    </p>
+
+    <input
+      id="studentName"
+      type="text"
+      placeholder="نام و نام خانوادگی"
+      autocomplete="off"
+    >
+
+    <input
+      id="classCode"
+      type="text"
+      inputmode="numeric"
+      maxlength="3"
+      placeholder="کد کلاس؛ مثال: 601"
+      autocomplete="off"
+    >
+
+    <button id="studentLoginBtn" class="primary-btn">
+      شروع ماجراجویی
+    </button>
+
+    <button id="studentBackBtn" class="secondary-btn">
+      بازگشت
+    </button>
+
+  </div>
+
+</section>
+
+<!-- =========================
+     ورود مهمان
+     ========================= -->
+<section id="guestLoginPage" class="page">
+
+  <div class="login-card">
+
+    <div class="login-icon">
+      👤
+    </div>
+
+    <h2>
+      ورود مهمان
+    </h2>
+
+    <p>
+      بدون ثبت نتیجه در کلاس، بازی را تجربه کن.
+    </p>
+
+    <button id="guestStartBtn" class="primary-btn">
+      شروع بازی
+    </button>
+
+    <button id="guestBackBtn" class="secondary-btn">
+      بازگشت
+    </button>
+
+  </div>
+
+</section>
+
+<!-- =========================
+     صفحه اصلی بازی
+     ========================= -->
+<section id="gamePage" class="page">
+
+  <header class="game-header">
+
+    <button
+      id="gameHomeBtn"
+      class="icon-btn"
+      title="بازگشت به صفحه اصلی"
+    >
+      ⌂
+    </button>
+
+    <div class="player-info">
+
+      <div id="gamePlayerName">
+        دانش‌آموز
+      </div>
+
+      <div id="gamePlayerClass">
+        کلاس
+      </div>
+
+    </div>
+
+    <div class="game-stats">
+
+      <div class="stat-box">
+        <span class="stat-label">
+          امتیاز
+        </span>
+
+        <strong id="scoreValue">
+          ۰
+        </strong>
+      </div>
+
+      <div class="stat-box">
+        <span class="stat-label">
+          دقت
+        </span>
+
+        <strong id="accuracyValue">
+          ۰٪
+        </strong>
+      </div>
+
+      <div class="stat-box">
+        <span class="stat-label">
+          پاسخ
+        </span>
+
+        <strong id="answeredValue">
+          ۰/۳۰
+        </strong>
+      </div>
+
+      <div class="stat-box">
+        <span class="stat-label">
+          زمان
+        </span>
+
+        <strong id="timerValue">
+          ۰۰:۰۰
+        </strong>
+      </div>
+
+    </div>
+
+  </header>
+
+  <!-- نوار پیشرفت -->
+  <div class="progress-area">
+
+    <div class="progress-track">
+
+      <div
+        id="progressFill"
+        class="progress-fill"
+      ></div>
+
+    </div>
+
+    <div class="progress-text">
+
+      <span>
+        پیشرفت بازی
+      </span>
+
+      <span id="progressPercent">
+        ۰٪
+      </span>
+
+    </div>
+
+  </div>
+
+  <!-- محتوای بازی -->
+  <main class="game-layout">
+
+    <!-- مناطق بازی -->
+    <aside class="regions-panel">
+
+      <div class="panel-title">
+
+        <span>
+          🗺️
+        </span>
+
+        <div>
+
+          <strong>
+            نقشه ماجراجویی
+          </strong>
+
+          <small>
+            مراحل بازی
+          </small>
+
+        </div>
+
+      </div>
+
+      <div
+        id="regionsContainer"
+        class="regions-container"
+      >
+        <!-- مراحل توسط JavaScript ساخته می‌شوند -->
+      </div>
+
+    </aside>
+
+    <!-- بخش سؤال -->
+    <section
+      id="stageArea"
+      class="stage-area"
+    >
+
+      <div class="stage-heading">
+
+        <div>
+
+          <div
+            id="stageTitle"
+            class="stage-title"
+          >
+            دروازه معرفت
+          </div>
+
+          <div
+            id="stageSubtitle"
+            class="stage-subtitle"
+          >
+            برای شروع، یک مرحله را انتخاب کن.
+          </div>
+
+        </div>
+
+        <div
+          id="stageProgress"
+          class="stage-progress"
+        >
+          ۰/۰
+        </div>
+
+      </div>
+
+      <!-- انتخاب سؤال‌های مرحله -->
+      <div
+        id="questionGrid"
+        class="question-grid"
+      >
+        <!-- کارت‌های سؤال توسط JavaScript ساخته می‌شوند -->
+      </div>
+
+      <!-- نمایش سؤال -->
+      <div
+        id="questionView"
+        class="question-view hidden"
+      >
+
+        <div class="question-top">
+
+          <div
+            id="questionStage"
+            class="question-stage"
+          >
+            مرحله
+          </div>
+
+          <div
+            id="questionDifficulty"
+            class="question-difficulty"
+          >
+            آسان
+          </div>
+
+        </div>
+
+        <div class="question-card">
+
+          <div class="question-number">
+            پرسش
+          </div>
+
+          <div
+            id="questionText"
+            class="question-text"
+          >
+            متن سؤال
+          </div>
+
+          <div
+            id="optionsContainer"
+            class="options-container"
+          >
+            <!-- گزینه‌ها توسط JavaScript ساخته می‌شوند -->
+          </div>
+
+          <!-- توضیح پاسخ -->
+          <div
+            id="explanation"
+            class="explanation hidden"
+          >
+
+            <div class="explanation-title">
+              💡 نکته آموزشی
+            </div>
+
+            <div
+              id="explanationText"
+              class="explanation-text"
+            ></div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- پیام پایان مرحله -->
+      <div
+        id="finishMessage"
+        class="finish-message hidden"
+      ></div>
+
+      <!-- دکمه پایان مرحله -->
+      <button
+        id="finishStageBtn"
+        class="finish-stage-btn"
+        disabled
+      >
+        پایان مرحله و بررسی پاسخ‌ها
+      </button>
+
+    </section>
+
+  </main>
+
+</section>
+
+<!-- =========================
+     پنل معلم
+     ========================= -->
+<section id="teacherPanelPage" class="page">
+
+  <header class="teacher-header">
+
+    <button
+      id="teacherPanelHomeBtn"
+      class="icon-btn"
+    >
+      ⌂
+    </button>
+
+    <div>
+
+      <h1>
+        پنل معلم
+      </h1>
+
+      <p>
+        مدیریت نتایج و بازخورد دانش‌آموزان
+      </p>
+
+    </div>
+
+  </header>
+
+  <main class="teacher-panel">
+
+    <!-- پوشه کلاس‌ها -->
+    <section class="teacher-section">
+
+      <div class="section-heading">
+
+        <h2>
+          📁 کلاس‌ها
+        </h2>
+
+        <p>
+          برای مشاهده نتایج، کلاس موردنظر را انتخاب کنید.
+        </p>
+
+      </div>
+
+      <div
+        id="classFolders"
+        class="class-folders"
+      >
+
+        <button
+          class="class-folder"
+          data-class="601"
+        >
+          <span>📁</span>
+          <strong>۶۰۱</strong>
+        </button>
+
+        <button
+          class="class-folder"
+          data-class="602"
+        >
+          <span>📁</span>
+          <strong>۶۰۲</strong>
+        </button>
+
+        <button
+          class="class-folder"
+          data-class="603"
+        >
+          <span>📁</span>
+          <strong>۶۰۳</strong>
+        </button>
+
+        <button
+          class="class-folder"
+          data-class="604"
+        >
+          <span>📁</span>
+          <strong>۶۰۴</strong>
+        </button>
+
+      </div>
+
+    </section>
+
+    <!-- آمار کلاس -->
+    <section class="teacher-section">
+
+      <div class="section-heading">
+        <h2>
+          📊 آمار کلاس
+        </h2>
+      </div>
+
+      <div class="teacher-stats">
+
+        <div class="teacher-stat-card">
+          <span>👨‍🎓</span>
+          <small>دانش‌آموزان</small>
+          <strong id="teacherStudents">۰</strong>
+        </div>
+
+        <div class="teacher-stat-card">
+          <span>🎯</span>
+          <small>میانگین امتیاز</small>
+          <strong id="teacherAverage">۰</strong>
+        </div>
+
+        <div class="teacher-stat-card">
+          <span>🏆</span>
+          <small>بهترین امتیاز</small>
+          <strong id="teacherBest">۰</strong>
+        </div>
+
+        <div class="teacher-stat-card">
+          <span>📈</span>
+          <small>میانگین دقت</small>
+          <strong id="teacherAccuracy">۰٪</strong>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- جدول نتایج -->
+    <section class="teacher-section">
+
+      <div class="section-heading">
+        <h2>
+          📋 نتایج دانش‌آموزان
+        </h2>
+      </div>
+
+      <div class="table-wrapper">
+
+        <table class="results-table">
+
+          <thead>
+
+            <tr>
+              <th>نام</th>
+              <th>کلاس</th>
+              <th>امتیاز</th>
+              <th>دقت</th>
+              <th>زمان</th>
+              <th>تاریخ</th>
+            </tr>
+
+          </thead>
+
+          <tbody id="teacherTableBody">
+          </tbody>
+
+        </table>
+
+      </div>
+
+      <div class="teacher-actions">
+
+        <button
+          id="exportCsvBtn"
+          class="primary-btn"
+        >
+          📥 خروجی CSV
+        </button>
+
+        <button
+          id="clearClassBtn"
+          class="danger-btn"
+        >
+          🗑️ پاک کردن نتایج کلاس
+        </button>
+
+      </div>
+
+    </section>
+
+    <!-- بازخورد -->
+    <section class="teacher-section">
+
+      <div class="section-heading">
+        <h2>
+          💬 بازخورد دانش‌آموزان
+        </h2>
+      </div>
+
+      <div
+        id="feedbackSummary"
+        class="feedback-summary"
+      >
+      </div>
+
+      <div
+        id="feedbackList"
+        class="feedback-list"
+      >
+      </div>
+
+    </section>
+
+  </main>
+
+</section>
+
+<!-- =========================
+     صفحه نتیجه نهایی
+     ========================= -->
+<section id="resultPage" class="page">
+
+  <main class="result-container">
+
+    <div class="result-hero">
+
+      <div class="result-trophy">
+        🏆
+      </div>
+
+      <h1>
+        ماجراجویی به پایان رسید!
+      </h1>
+
+      <p>
+        نتیجه تلاش تو در شهر واژه‌ها
+      </p>
+
+    </div>
+
+    <!-- آمار نهایی -->
+    <div class="final-stats">
+
+      <div class="final-stat-card">
+        <span>⭐</span>
+        <small>امتیاز نهایی</small>
+        <strong id="finalScore">۰</strong>
+      </div>
+
+      <div class="final-stat-card">
+        <span>🎯</span>
+        <small>دقت</small>
+        <strong id="finalAccuracy">۰٪</strong>
+      </div>
+
+      <div class="final-stat-card">
+        <span>⏱️</span>
+        <small>زمان</small>
+        <strong id="finalTime">۰۰:۰۰</strong>
+      </div>
+
+      <div class="final-stat-card">
+        <span>📚</span>
+        <small>تعداد پاسخ</small>
+        <strong>۳۰/۳۰</strong>
+      </div>
+
+    </div>
+
+    <!-- تحلیل -->
+    <div class="result-analysis">
+
+      <div class="analysis-card">
+
+        <span>
+          💪
+        </span>
+
+        <div>
+
+          <small>
+            قوی‌ترین بخش
+          </small>
+
+          <strong id="strongestSection">
+            —
+          </strong>
+
+        </div>
+
+      </div>
+
+      <div class="analysis-card">
+
+        <span>
+          🔍
+        </span>
+
+        <div>
+
+          <small>
+            نیازمند مرور
+          </small>
+
+          <strong id="needsReview">
+            —
+          </strong>
+
+        </div>
+
+      </div>
+
+      <div class="analysis-card">
+
+        <span>
+          🏅
+        </span>
+
+        <div>
+
+          <small>
+            رتبه در کلاس
+          </small>
+
+          <strong id="finalRank">
+            —
+          </strong>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- نشان‌ها -->
+    <section class="badges-section">
+
+      <h2>
+        🏅 نشان‌های تو
+      </h2>
+
+      <div class="badges-grid">
+
+        <div
+          id="badgeVocabulary"
+          class="badge-card"
+        >
+
+          <div class="badge-icon">
+            🔤
+          </div>
+
+          <strong>
+            واژه‌شناس
+          </strong>
+
+          <small>
+            تسلط بر واژه‌ها
+          </small>
+
+        </div>
+
+        <div
+          id="badgeGrammar"
+          class="badge-card"
+        >
+
+          <div class="badge-icon">
+            📝
+          </div>
+
+          <strong>
+            دستوربان
+          </strong>
+
+          <small>
+            تسلط بر دستور زبان
+          </small>
+
+        </div>
+
+        <div
+          id="badgeLiterature"
+          class="badge-card"
+        >
+
+          <div class="badge-icon">
+            📜
+          </div>
+
+          <strong>
+            گنجینه ادب
+          </strong>
+
+          <small>
+            تسلط بر ادبیات
+          </small>
+
+        </div>
+
+        <div
+          id="badgeChampion"
+          class="badge-card"
+        >
+
+          <div class="badge-icon">
+            👑
+          </div>
+
+          <strong>
+            قهرمان شهر واژه‌ها
+          </strong>
+
+          <small>
+            عملکرد درخشان
+          </small>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- مرور پاسخ‌های غلط -->
+    <section
+      id="reviewBox"
+      class="review-box"
+    >
+
+      <div class="section-heading">
+
+        <h2>
+          🔎 مرور پاسخ‌های نیازمند توجه
+        </h2>
+
+      </div>
+
+      <div
+        id="reviewList"
+        class="review-list"
+      >
+      </div>
+
+    </section>
+
+    <!-- بازخورد دانش‌آموز -->
+    <section class="feedback-section">
+
+      <h2>
+        💬 نظر تو درباره بازی چیست؟
+      </h2>
+
+      <p>
+        نظر خودت را اینجا تایپ کن
+      </p>
+
+      <textarea
+        id="feedbackText"
+        placeholder="نظر خودت را اینجا تایپ کن"
+        rows="4"
+      ></textarea>
+
+      <div class="satisfaction-title">
+        میزان رضایت:
+      </div>
+
+      <div class="feedback-choices">
+
+        <button
+          class="feedback-choice"
+          data-satisfaction="1"
+          type="button"
+        >
+          😠
+          <span>
+            اصلاً دوست نداشتم
+          </span>
+        </button>
+
+        <button
+          class="feedback-choice"
+          data-satisfaction="2"
+          type="button"
+        >
+          🙁
+          <span>
+            نیاز به بهتر شدن دارد
+          </span>
+        </button>
+
+        <button
+          class="feedback-choice"
+          data-satisfaction="3"
+          type="button"
+        >
+          😐
+          <span>
+            متوسط بود
+          </span>
+        </button>
+
+        <button
+          class="feedback-choice"
+          data-satisfaction="4"
+          type="button"
+        >
+          🙂
+          <span>
+            خوب بود
+          </span>
+        </button>
+
+        <button
+          class="feedback-choice"
+          data-satisfaction="5"
+          type="button"
+        >
+          🤩
+          <span>
+            عالی بود!
+          </span>
+        </button>
+
+      </div>
+
+      <button
+        id="submitFeedbackBtn"
+        class="primary-btn"
+      >
+        📨 ثبت نظر
+      </button>
+
+    </section>
+
+    <!-- بازگشت -->
+    <button
+      id="resultHomeBtn"
+      class="secondary-btn"
+    >
+      بازگشت به صفحه اصلی
+    </button>
+
+  </main>
+
+</section>
+
+<!-- =========================
+     پیام‌های موقت
+     ========================= -->
+<div id="toast" class="toast">
+</div>
+
+<!-- فایل JavaScript جداگانه -->
+<script src="script.js"></script>
+
+</body>
+</html>
